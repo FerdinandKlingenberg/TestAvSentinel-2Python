@@ -1,0 +1,7 @@
+# Må ha SRTM data og Norsk høydemodell, og ha shapefile fra OTB envelope
+
+gdalsrsinfo -o wkt srtm_38_01.tif > target.wkt
+
+gdalwarp -t_srs target.wkt -ot Int16 -overwrite -multi SoerNorge10mDEM.tif SoerNorge10mDEM_WGS84.tif
+
+gdalwarp -cutline srtm_38_01_envelope.shp -crop_to_cutline -of GTiff SoerNorge10mDEM_WGS84.tif srtm_38_01_Out.tif -overwrite -co COMPRESS=NONE -co TILED=YES --config GDAL_CACHEMAX 2048 -wm 2048 -multi
