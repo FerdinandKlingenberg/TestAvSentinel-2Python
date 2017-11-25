@@ -1,0 +1,28 @@
+(1)
+python C:\Users\klitor\AppData\Local\Continuum\anaconda3\envs\rasterio\Scripts\gdal_merge.py -o C:\Users\klitor\Arbeidsmappe\NiBTestS2Opplastning\python_rasterio\Data\20170811_GDAL_16bit.tif -of GTiff -co PHOTOMETRIC=RGB -separate T32VNL_20170811T104021_B04.jp2 T32VNL_20170811T104021_B03.jp2 T32VNL_20170811T104021_B02.jp2
+(2)
+gdalinfo -mm 20170811_GDAL_16bit.tif
+(3)
+gdal_translate 20170811_GDAL_16bit.tif 20170811_GDAL_8bit.tif -scale 1 24922 0 255 -exponent 0.5 -co PHOTOMETRIC=RGB -ot Byte
+
+Se også https://medium.com/planet-stories/a-gentle-introduction-to-gdal-part-4-working-with-satellite-data-d3835b5e2971 
+
+Fra 
+gdalinfo -mm 20170811_GDAL_16bit.tif
+
+Husk, der det står "-scale 1 24922 0 255" så er 1 minimum verdien fra alle båndene og 24922 det maksimume fra alle båndene. 0 og 255 er hva den nye "rangen" verdiene skal løpe igjennom
+
+
+For å fjerne georeferering:
+gdal_translate -co PROFILE=BASELINE in.tif out.tif
+
+
+
+
+
+
+
+python C:\Users\klitor\AppData\Local\Continuum\anaconda3\envs\rasterio\Scripts\gdal_merge.py -o C:\Users\klitor\Arbeidsmappe\NiBTestS2Opplastning\python_rasterio\Data\20150822_GDAL_16bit.tif -of GTiff -co PHOTOMETRIC=RGB -separate 20150822_B04.jp2 20150822_B03.jp2 20150822_B02.jp2 
+
+
+gdal_translate 20150822_GDAL_16bit.tif 20150822_GDAL_8bit.tif -scale 1 28000 0 255 -exponent 0.5 -co PHOTOMETRIC=RGB -ot Byte
